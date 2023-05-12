@@ -19,7 +19,7 @@ export default class AnimatedGaugeProgress extends React.Component {
   }
 
   componentWillUnmount() {
-    if(changeListener !== null){
+    if(this.changeListener !== null){
       this.changeListener.remove();
     }
   }
