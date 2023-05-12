@@ -11,13 +11,17 @@ export default class AnimatedGaugeProgress extends React.Component {
     chartFillAnimation: new Animated.Value(this.props.prefill || 0)
   }
 
+  changeListener = null;
+  
   componentDidMount() { 
     this.animateFill();
-    AppState.addEventListener('change', this._handleAppStateChange);
+    this.changeListener = AppState.addEventListener('change', this._handleAppStateChange);
   }
 
   componentWillUnmount() {
-    AppState.removeEventListener('change', this._handleAppStateChange);
+    if(changeListener !== null){
+      this.changeListener.remove();
+    }
   }
 
   _handleAppStateChange = (nextAppState) => {
